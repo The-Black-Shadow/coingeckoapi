@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../model/coin_model.dart';
 
@@ -16,9 +17,9 @@ class CoinRepository {
       url,
       headers: {'x-cg-demo-api-key': apiKey},
     );
-
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
+      debugPrint('Fetched coins: $data');
       return data.map((json) => Coin.fromJson(json)).toList();
     } else {
       throw Exception('Failed to load coins');
