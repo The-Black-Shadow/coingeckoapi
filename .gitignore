@@ -48,3 +48,4 @@ app.*.map.json
 #API
 *.env
 
+node_modules
