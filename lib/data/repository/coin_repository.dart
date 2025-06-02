@@ -3,26 +3,25 @@ import 'package:http/http.dart' as http;
 import '../model/coin_model.dart';
 
 class CoinRepository {
-  static const _baseUrl = 'https://api.coingecko.com/api/v3';
   final String apiKey;
 
   CoinRepository({required this.apiKey});
 
-  Future<Coin> fetchCoin(String coinId) async {
-    final url = Uri.parse('$_baseUrl/coins/$coinId');
+  Future<List<Coin>> fetchCoins(List<String> ids) async {
+    final url = Uri.parse(
+      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${ids.join(",")}',
+    );
 
     final response = await http.get(
       url,
-      headers: {
-        'x-cg-demo-api-key': apiKey, // CoinGecko header key (replace with real header if different)
-      },
+      headers: {'x-cg-demo-api-key': apiKey},
     );
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      return Coin.fromJson(data);
+      final List<dynamic> data = json.decode(response.body);
+      return data.map((json) => Coin.fromJson(json)).toList();
     } else {
-      throw Exception('Failed to load coin');
+      throw Exception('Failed to load coins');
     }
   }
 }

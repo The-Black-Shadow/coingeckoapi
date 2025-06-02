@@ -10,13 +10,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final coinRepository = CoinRepository(apiKey: apiKey);
+    final repo = CoinRepository(apiKey: apiKey);
 
     return MaterialApp(
       home: BlocProvider(
-        create: (_) =>
-            CoinBloc(repository: coinRepository)..add(LoadCoin('bitcoin')),
-        child: CoinPage(),
+        create: (_) => CoinBloc(repository: repo)
+          ..add(
+            LoadCoins([
+              'bitcoin',
+              'ethereum',
+              'binancecoin',
+              'ripple',
+              'solana',
+            ]),
+          ),
+        child: CoinListPage(),
       ),
     );
   }

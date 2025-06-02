@@ -8,9 +8,9 @@ final class CoinInitial extends CoinState {}
 class CoinLoading extends CoinState {}
 
 class CoinLoaded extends CoinState {
-  final Coin coin;
+  final List<Coin> coins;
 
-  CoinLoaded(this.coin);
+  CoinLoaded(this.coins);
 }
 
 class CoinError extends CoinState {

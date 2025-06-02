@@ -3,8 +3,8 @@ part of 'coin_bloc.dart';
 @immutable
 sealed class CoinEvent {}
 
-class LoadCoin extends CoinEvent {
-  final String coinId;
+class LoadCoins extends CoinEvent {
+  final List<String> coinIds;
 
-  LoadCoin(this.coinId);
+  LoadCoins(this.coinIds);
 }

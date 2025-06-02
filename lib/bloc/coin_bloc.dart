@@ -10,13 +10,13 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   final CoinRepository repository;
 
   CoinBloc({required this.repository}) : super(CoinInitial()) {
-    on<LoadCoin>((event, emit) async {
+    on<LoadCoins>((event, emit) async {
       emit(CoinLoading());
       try {
-        final coin = await repository.fetchCoin(event.coinId);
-        emit(CoinLoaded(coin));
+        final coins = await repository.fetchCoins(event.coinIds);
+        emit(CoinLoaded(coins));
       } catch (e) {
-        emit(CoinError('Failed to fetch coin: ${e.toString()}'));
+        emit(CoinError(e.toString()));
       }
     });
   }
